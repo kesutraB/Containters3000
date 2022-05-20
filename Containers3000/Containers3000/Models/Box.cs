@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace Containers3000.Models
 {
@@ -6,9 +6,27 @@ namespace Containers3000.Models
 	{
 		public Guid BoxId { get; protected set; }
 
-		public Box(int height, int width, int length, int weight) : base(height, width, length, weight)
+		public Box(int height, int width, int length, int weight) : base(height, width, length, weight) { }
+
+		public static Box GenerateBoxParameters()
 		{
-			BoxId = Guid.NewGuid();
+			int height = Helper.GetRng(10, 50);
+			int width = Helper.GetRng(10, 50);
+			int length = Helper.GetRng(10, 50);
+			int weight = Helper.GetRng(10, 50);
+
+			return new Box(height, width, length, weight);
+		}
+
+		public static Box GetBox(Box nullBox)
+		{
+			Box box;
+			if (nullBox == null)
+				box = GenerateBoxParameters();
+			else
+				box = nullBox;
+
+			return box;
 		}
 
 		public override string ToString()

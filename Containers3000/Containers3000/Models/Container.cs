@@ -1,75 +1,38 @@
-﻿using System;
+using System.Collections.Generic;
 
 namespace Containers3000.Models
 {
 	public class Container : StorageBase
 	{
-		public Guid ContainerId { get; protected set; }
+		public double AvailableStorage { get; protected set; }
+		private List<Box> StoragedBoxes { get; }
 
-		public Container(int height, int width, int length, int weight) : base(height, width, length, weight)
+		public Container(int height, int width, int length, int weight) : base(height, width, length, weight) { }
+
+		public static Container CreateContainer()
 		{
-			ContainerId = Guid.NewGuid();
+			return new Container(20, 50, 100, 10000);
 		}
 
-		public void PrintRemainingStorage()
+		public bool AddBoxToContainer(Box box)
 		{
-			Console.ForegroundColor = ConsoleColor.DarkGreen;
-			Console.WriteLine($"Storage space remaining: {this.Volume}");
-			Console.ResetColor();
+			if (!DoesBoxFitIntoContainer(box))
+				return false;
+
+			StoragedBoxes.Add(box);
+			AvailableStorage -= box.Volume;
+			AddWeight(box.Weight);
+			return true;
 		}
 
-		public void AddBoxToContainer(Box box)
+		public bool DoesBoxFitIntoContainer(Box box)
 		{
-			SubtractBoxVolume(box);
-			Console.ForegroundColor = ConsoleColor.Blue;
-			Console.WriteLine("Box added.");
-			Console.ResetColor();
+			return box.Volume < AvailableStorage;
 		}
 
-		public void DontAddBoxToContainer(Box box)
-		{
-			AddBoxVolume(box);
-			Console.ForegroundColor = ConsoleColor.Red;
-			Console.WriteLine("Box not added - Container is too full.");
-			Console.ResetColor();
-		}
-
-		#region Helpers
-
-		public void AddBoxVolume(Box box)
-		{
-			this.Volume += box.Volume;
-		}
-
-		public void SubtractBoxVolume(Box box)
-		{
-			this.Volume -= box.Volume;
-		}
-
-		public bool DoesBoxFitContainer(Box box)
-		{
-			if (box.Volume > this.Volume)
-				return true;
-
-			return false;
-		}
-
-		public static Box GenerateBoxParameters()
-		{
-			int height = GetRNG(10, 50);
-			int width = GetRNG(10, 50);
-			int length = GetRNG(10, 50);
-			int weight = GetRNG(10, 50);
-
-			return new Box(height, width, length, weight);
-		}
-
-		public static int GetRNG(int minValue, int maxValue)
-		{
-			Random random = new Random();
-			return random.Next(minValue, maxValue);
-		}
-
-		#endregion
+		//public int CountStoragedBoxes()
+		//{
+		//	return StoragedBoxes.Count;
+		//}
 	}
 }
