@@ -10,10 +10,10 @@ namespace Containers3000.Models
 
 		public static Box GenerateBoxParameters()
 		{
-			int height = Helper.GetRng(10, 50);
-			int width = Helper.GetRng(10, 50);
-			int length = Helper.GetRng(10, 50);
-			int weight = Helper.GetRng(10, 50);
+			int height = Helper.GetRng(25, 51);
+			int width = Helper.GetRng(25, 51);
+			int length = Helper.GetRng(25, 51);
+			int weight = Helper.GetRng(250, 501);
 
 			return new Box(height, width, length, weight);
 		}
