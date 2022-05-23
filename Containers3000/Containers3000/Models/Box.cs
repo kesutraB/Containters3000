@@ -1,3 +1,5 @@
+using Containers3000.Helpers;
+
 namespace Containers3000.Models
 {
 	public class Box : StorageBase
@@ -7,10 +9,10 @@ namespace Containers3000.Models
 
 		public static Box GenerateBoxParameters()
 		{
-			int height = Helper.GetRng(25, 51);
-			int width = Helper.GetRng(25, 51);
-			int length = Helper.GetRng(25, 51);
-			int weight = Helper.GetRng(250, 501);
+			int height = GeneratingHelper.GetRng(25, 51);
+			int width = GeneratingHelper.GetRng(25, 51);
+			int length = GeneratingHelper.GetRng(25, 51);
+			int weight = GeneratingHelper.GetRng(250, 501);
 
 			return new Box(height, width, length, weight);
 		}

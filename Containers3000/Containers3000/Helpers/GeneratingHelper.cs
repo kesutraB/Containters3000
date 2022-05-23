@@ -1,8 +1,8 @@
 using System;
 
-namespace Containers3000
+namespace Containers3000.Helpers
 {
-	public class Helper
+	public class GeneratingHelper
 	{
 		public static int GetRng(int minValue, int maxValue)
 		{

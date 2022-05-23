@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Containers3000.Helpers;
 
 namespace Containers3000.Models
 {
@@ -32,8 +33,8 @@ namespace Containers3000.Models
 
 			do
 			{
-				int x = Helper.GetRng(0, 10);
-				int y = Helper.GetRng(10, 100);
+				int x = GeneratingHelper.GetRng(0, 10);
+				int y = GeneratingHelper.GetRng(10, 100);
 
 				id = x + " - " + y;
 			} while (CheckGeneratedId(id, generatedIds));

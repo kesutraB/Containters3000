@@ -42,6 +42,10 @@ namespace Containers3000
 				}
 
 				ship.AddSmallerStorageToBiggerStorage(container, ship.ContainersInside);
+
+				ship.CheckShipState(ship, container);
+				ship.ReturnShipState(ship);
+
 			}
 		}
 
@@ -71,15 +75,13 @@ namespace Containers3000
 
 		private static void PrintPortTable()
 		{
-			int i = 1;
-			var table = new Table("No.","Ship ID"/*, "Number of Containers", "Ship State"*/, "Container ID", "Number of Boxes", "Loaded Weight"/*, "Location", "Docking Spot"*/);
+			var table = new Table("Ship ID", "Ship State", "Container ID", "Boxes Inside", "Loaded Weight"/*, "Location", "Docking Spot"*/);
 			table.Config = TableConfiguration.UnicodeAlt();
 			foreach (var ship in Ships)
 			{
 				foreach (var container in Containers)
 				{
-					table.AddRow(i, ship.ShipId, container.ContainerId, container.CountSmallerStorage(container.BoxesInside), $"{container.ContentWeight} kg");
-					i++;
+					table.AddRow(ship.ShipId, ship.ReturnShipState(ship), container.ContainerId, container.CountSmallerStorage(container.BoxesInside), $"{container.ContentWeight} kg");
 				}
 			}
 
