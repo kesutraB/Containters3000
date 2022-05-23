@@ -16,7 +16,7 @@ namespace Containers3000
 			Box nullBox = null;
 			AddingBoxesUntilFull(NumberOfBoxes, 0, nullBox);
 
-			PrintTable();
+			PrintContainerTable();
 
 		}
 
@@ -44,17 +44,18 @@ namespace Containers3000
 			}
 		}
 
-		private static void PrintTable()
+		private static void PrintContainerTable()
 		{
 			int i = 1;
-			var table = new Table("No.", "Container ID", "Generated ID", "Number of boxes", "Loaded Weight");
+			var table = new Table("No.", "GuID", "Container ID", "Number of boxes", "Loaded Weight");
 			table.Config = TableConfiguration.UnicodeAlt();
 			foreach (var container in Containers)
 			{
-				table.AddRow(i, container.StorageId, container.GeneratedId, container.CountStoragedBoxes(), $"{container.ContentWeight} kg");
+				table.AddRow(i, container.StorageId, container.ContainerId, container.CountStoragedBoxes(), $"{container.ContentWeight} kg");
 				i++;
 			}
 
+			Console.WriteLine("Table of containers:");
 			Console.ForegroundColor = ConsoleColor.DarkBlue;
 			Console.WriteLine(table.ToString());
 			Console.ResetColor();
