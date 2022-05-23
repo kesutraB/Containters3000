@@ -7,7 +7,7 @@ namespace Containers3000
 {
 	internal class Program
 	{
-		public const int NumberOfBoxes = 500;
+		public const int NumberOfBoxes = 750;
 		public static List<Box> Boxes = new List<Box>();
 		public static List<Container> Containers = new List<Container>();
 		public static List<Ship> Ships = new List<Ship>();
@@ -15,21 +15,20 @@ namespace Containers3000
 		static void Main(string[] args)
 		{
 			Box nullBox = null;
-			Container nullContainer = null;
 			AddingBoxesUntilFull(NumberOfBoxes, 0, nullBox);
 			int numberOfContainers = Containers.Count;
-			//AddingContainersUntilFull(numberOfContainers, 0, nullContainer);
+			AddingContainersUntilFull(numberOfContainers, 0);
 
 			PrintPortTable();
 
 		}
 
-		private static void AddingContainersUntilFull(int notStoragedContainers, int firstContainer, Container nullContainer)
+		private static void AddingContainersUntilFull(int notStoragedContainers, int firstContainer)
 		{
 			Ship ship = Ship.CreateShip();
 			Ships.Add(ship);
 
-			for (int i = 0; i < notStoragedContainers; i++)
+			for (int i = firstContainer; i < notStoragedContainers; i++)
 			{
 				var container = Containers[i];
 				Containers.Add(container);
@@ -38,13 +37,11 @@ namespace Containers3000
 				{
 					Container notFittingContainer = container;
 					Containers.Remove(notFittingContainer);
-					AddingContainersUntilFull(notStoragedContainers, i, notFittingContainer);
+					AddingContainersUntilFull(notStoragedContainers, i);
 					return;
 				}
 
 				ship.AddSmallerStorageToBiggerStorage(container, ship.ContainersInside);
-
-				nullContainer = null;
 			}
 		}
 
@@ -74,11 +71,16 @@ namespace Containers3000
 
 		private static void PrintPortTable()
 		{
-			var table = new Table(/*"Ship ID", */"Container ID", "Number of boxes", "Loaded Weight"/*, "Location", "Docking Spot", "Ship State"*/);
+			int i = 1;
+			var table = new Table("No.","Ship ID"/*, "Number of Containers", "Ship State"*/, "Container ID", "Number of Boxes", "Loaded Weight"/*, "Location", "Docking Spot"*/);
 			table.Config = TableConfiguration.UnicodeAlt();
-			foreach (var container in Containers)
+			foreach (var ship in Ships)
 			{
-				table.AddRow(container.ContainerId, container.CountSmallerStorage(container.BoxesInside), $"{container.ContentWeight} kg");
+				foreach (var container in Containers)
+				{
+					table.AddRow(i, ship.ShipId, container.ContainerId, container.CountSmallerStorage(container.BoxesInside), $"{container.ContentWeight} kg");
+					i++;
+				}
 			}
 
 			Console.WriteLine("Port Table: \n");
