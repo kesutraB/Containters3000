@@ -15,38 +15,38 @@ namespace Containers3000
 		static void Main(string[] args)
 		{
 			Box nullBox = null;
-			//Container nullContainer = null;
+			Container nullContainer = null;
 			AddingBoxesUntilFull(NumberOfBoxes, 0, nullBox);
-			//int numberOfContainers = Containers.Count;
+			int numberOfContainers = Containers.Count;
 			//AddingContainersUntilFull(numberOfContainers, 0, nullContainer);
 
 			PrintPortTable();
 
 		}
 
-		//private static void AddingContainersUntilFull(int notStoragedContainers, int firstContainer, Container nullContainer)
-		//{
-		//	Ship ship = Ship.CreateShip();
-		//	Ships.Add(ship);
+		private static void AddingContainersUntilFull(int notStoragedContainers, int firstContainer, Container nullContainer)
+		{
+			Ship ship = Ship.CreateShip();
+			Ships.Add(ship);
 
-		//	for (int i = 0; i < notStoragedContainers; i++)
-		//	{
-		//		var container = Containers[i];
-		//		Containers.Add(container);
+			for (int i = 0; i < notStoragedContainers; i++)
+			{
+				var container = Containers[i];
+				Containers.Add(container);
 
-		//		if (!ship.DoesSmallerStorageFitIntoBiggerStorage(container))
-		//		{
-		//			Container notFittingContainer = container;
-		//			Containers.Remove(notFittingContainer);
-		//			AddingContainersUntilFull(notStoragedContainers, i, notFittingContainer);
-		//			return;
-		//		}
+				if (!ship.DoesSmallerStorageFitIntoBiggerStorage(container))
+				{
+					Container notFittingContainer = container;
+					Containers.Remove(notFittingContainer);
+					AddingContainersUntilFull(notStoragedContainers, i, notFittingContainer);
+					return;
+				}
 
-		//		ship.AddSmallerStorageToBiggerStorage(container, ship.ContainersInside);
+				ship.AddSmallerStorageToBiggerStorage(container, ship.ContainersInside);
 
-		//		nullContainer = null;
-		//	}
-		//}
+				nullContainer = null;
+			}
+		}
 
 		private static void AddingBoxesUntilFull(int notStoragedBoxes, int firstBox, Box nullBox)
 		{
