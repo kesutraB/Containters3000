@@ -25,7 +25,7 @@ namespace Containers3000
 
 		private static void AddingContainersUntilFull(int notStoragedContainers, int firstContainer)
 		{
-			Ship ship = Ship.CreateShip();
+			var ship = Ship.CreateShip();
 			Ships.Add(ship);
 
 			for (int i = firstContainer; i < notStoragedContainers; i++)
@@ -35,7 +35,7 @@ namespace Containers3000
 
 				if (!ship.DoesSmallerStorageFitIntoBiggerStorage(container))
 				{
-					Container notFittingContainer = container;
+					var notFittingContainer = container;
 					Containers.Remove(notFittingContainer);
 					AddingContainersUntilFull(notStoragedContainers, i);
 					return;
@@ -47,7 +47,7 @@ namespace Containers3000
 
 		private static void AddingBoxesUntilFull(int notStoragedBoxes, int firstBox, Box nullBox)
 		{
-			Container container = Container.CreateContainer();
+			var container = Container.CreateContainer();
 			Containers.Add(container);
 
 			for (int i = firstBox; i < notStoragedBoxes; i++)
@@ -57,7 +57,7 @@ namespace Containers3000
 
 				if (!container.DoesSmallerStorageFitIntoBiggerStorage(box))
 				{
-					Box notFittingBox = box;
+					var notFittingBox = box;
 					Boxes.Remove(box);
 					AddingBoxesUntilFull(notStoragedBoxes, i, notFittingBox);
 					return;
