@@ -15,7 +15,7 @@ namespace Containers3000.Models
 			StoragedBoxes = new List<Box>();
 		}
 
-		public List<string> GeneratedIds = new List<string>();
+		public static List<string> GeneratedIds = new List<string>();
 
 		public static Container CreateContainer()
 		{
