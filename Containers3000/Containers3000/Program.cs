@@ -112,7 +112,6 @@ namespace Containers3000
 				new ColumnHeader("Ship State", Alignment.Center, Alignment.Center),
 				new ColumnHeader("Containers Inside", Alignment.Center, Alignment.Center),
 				new ColumnHeader("Loaded Weight", Alignment.Center, Alignment.Center),
-				//new ColumnHeader("Location", Alignment.Center, Alignment.Center),
 				//new ColumnHeader("Docking spot", Alignment.Center, Alignment.Center),
 			};
 			var shipTable = new Table(shipHeaders);
@@ -136,12 +135,13 @@ namespace Containers3000
 				new ColumnHeader("Container State", Alignment.Center, Alignment.Center),
 				new ColumnHeader("Containers Inside", Alignment.Center, Alignment.Center),
 				new ColumnHeader("Loaded Weight", Alignment.Center, Alignment.Center),
+				new ColumnHeader("Location", Alignment.Center, Alignment.Center),
 			};
 			var containerTable = new Table(containerHeaders);
 			containerTable.Config = TableConfiguration.UnicodeAlt();
 			foreach (var container in Containers)
 			{
-				containerTable.AddRow(container.ContainerId, container.ReturnStorageState(container), container.CountSmallerStorage(container.BoxesInside), $"{container.ContentWeight} kg");
+				containerTable.AddRow(container.ContainerId, container.ReturnStorageState(container), container.CountSmallerStorage(container.BoxesInside), $"{container.ContentWeight} kg", $"ship(ship id)/dock");
 			}
 
 			Console.ForegroundColor = ConsoleColor.DarkMagenta;
