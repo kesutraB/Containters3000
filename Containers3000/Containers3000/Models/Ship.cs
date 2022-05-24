@@ -36,5 +36,6 @@ namespace Containers3000.Models
 			else if (!ship.DoesSmallerStorageFitIntoBiggerStorage(container))
 				ship.State = ShipState.Full;
 		}
+
 	}
 }

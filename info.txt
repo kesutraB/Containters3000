@@ -1,0 +1,4 @@
+move container - id, destination
+switch - 1. vypsani tabulky
+		 2. presunuti kontejneru
+		 3. vylodeni kontejneru

@@ -36,7 +36,7 @@ namespace Containers3000.Models
 				int x = GeneratingHelper.GetRng(0, 10);
 				int y = GeneratingHelper.GetRng(10, 100);
 
-				id = x + " - " + y;
+				id = x + "-" + y;
 			} while (CheckGeneratedId(id, generatedIds));
 
 			generatedIds.Add(id);

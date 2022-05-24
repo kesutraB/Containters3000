@@ -7,7 +7,7 @@ namespace Containers3000.Models
 
 		public Box(int height, int width, int length, int weight) : base(height, width, length, weight) { }
 
-		public static Box GenerateBoxParameters()
+		public static Box CreateBox()
 		{
 			int height = GeneratingHelper.GetRng(25, 51);
 			int width = GeneratingHelper.GetRng(25, 51);
@@ -21,7 +21,7 @@ namespace Containers3000.Models
 		{
 			Box box;
 			if (nullBox == null)
-				box = GenerateBoxParameters();
+				box = CreateBox();
 			else
 				box = nullBox;
 
