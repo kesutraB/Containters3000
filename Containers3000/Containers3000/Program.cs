@@ -1,11 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
 using System.Threading;
 using Containers3000.Models;
 using BetterConsoleTables;
-using Container = Containers3000.Models.Container;
 
 namespace Containers3000
 {
@@ -59,16 +56,15 @@ namespace Containers3000
 		}
 
 		#region Adding storage
-		//musim predelat na univerzalni funkci
+
 		private static void AddingContainersUntilFull(int notStoragedContainers, int firstContainer)
 		{
 			var ship = Ship.CreateShip();
 			Ships.Add(ship);
-
+			
 			for (int i = firstContainer; i < notStoragedContainers; i++)
 			{
 				var container = Containers[i];
-				Containers.Add(container);
 
 				if (!ship.DoesSmallerStorageFitIntoBiggerStorage(container))
 				{
