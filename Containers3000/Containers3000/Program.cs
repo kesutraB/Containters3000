@@ -18,7 +18,7 @@ namespace Containers3000
 			AddingBoxesUntilFull(NumberOfBoxes, 0, nullBox);
 			int numberOfContainers = Containers.Count;
 			AddingContainersUntilFull(numberOfContainers, 0);
-
+			//dat Menu() do while s ukoncovacim keywordem
 			Menu();
 		}
 
@@ -48,7 +48,7 @@ namespace Containers3000
 		}
 
 		#region Adding storage
-
+		//musim predelat na univerzalni funkci
 		private static void AddingContainersUntilFull(int notStoragedContainers, int firstContainer)
 		{
 			var ship = Ship.CreateShip();
@@ -100,7 +100,7 @@ namespace Containers3000
 			}
 		}
 
-		#endregion//musim predelat na univerzalni funkci
+		#endregion
 
 		#region Printing tables
 
