@@ -91,6 +91,8 @@ namespace Containers3000
 				}
 
 				container.AddSmallerStorageToBiggerStorage(box, container.BoxesInside);
+				container.CheckStorageState(container, box);
+				container.ReturnStorageState(container);
 
 				nullBox = null;
 			}
