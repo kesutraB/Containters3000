@@ -16,9 +16,10 @@ namespace Containers3000
 		static void Main(string[] args)
 		{
 			Box nullBox = null;
+			Container nullContainer = null;
 			AddingBoxesUntilFull(NumberOfBoxes, 0, nullBox);
 			int numberOfContainers = Containers.Count;
-			AddingContainersUntilFull(numberOfContainers, 0);
+			AddingContainersUntilFull(numberOfContainers, 0, nullContainer);
 
 			while (true)
 			{
@@ -57,20 +58,20 @@ namespace Containers3000
 
 		#region Adding storage
 
-		private static void AddingContainersUntilFull(int notStoragedContainers, int firstContainer)
+		private static void AddingContainersUntilFull(int notStoragedContainers, int firstContainer, Container nullContainer)
 		{
 			var ship = Ship.CreateShip();
 			Ships.Add(ship);
 			
 			for (int i = firstContainer; i < notStoragedContainers; i++)
 			{
-				var container = Containers[i];
+				var container = Container.GetContainer(nullContainer);
 
 				if (!ship.DoesSmallerStorageFitIntoBiggerStorage(container))
 				{
 					var notFittingContainer = container;
 					Containers.Remove(notFittingContainer);
-					AddingContainersUntilFull(notStoragedContainers, i);
+					AddingContainersUntilFull(notStoragedContainers, i, nullContainer);
 					return;
 				}
 
@@ -78,6 +79,8 @@ namespace Containers3000
 
 				ship.CheckStorageState(container, ship);
 				ship.ReturnStorageState(ship);
+
+				nullContainer = null;
 			}
 		}
 

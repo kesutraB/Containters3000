@@ -18,5 +18,16 @@ namespace Containers3000.Models
 		{
 			return new Container(20, 100, 500, 10000);
 		}
+
+		public static Container GetContainer(Container nullContainer)
+		{
+			Container container;
+			if (nullContainer == null)
+				container = CreateContainer();
+			else
+				container = nullContainer;
+
+			return container;
+		}
 	}
 }
