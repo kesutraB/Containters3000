@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Channels;
 using Containers3000.Models;
 using BetterConsoleTables;
 
@@ -35,7 +34,9 @@ namespace Containers3000
 			switch (switchMenu)
 			{
 				case 1:
-					PrintPortTable();
+					PrintShipTable();
+					Console.WriteLine("\n");
+					PrintContainerTable();
 					break;
 				case 2:
 					Console.WriteLine("Not yet");
@@ -66,8 +67,8 @@ namespace Containers3000
 
 				ship.AddSmallerStorageToBiggerStorage(container, ship.ContainersInside);
 
-				ship.CheckShipState(ship, container);
-				ship.ReturnShipState(ship);
+				ship.CheckStorageState(ship, container);
+				ship.ReturnStorageState(ship);
 			}
 		}
 
@@ -95,31 +96,49 @@ namespace Containers3000
 			}
 		}
 
-		private static void PrintPortTable()
+		private static void PrintShipTable()
 		{
-			ColumnHeader[] portHeaders = new[]
+			ColumnHeader[] shipHeaders = new[]
 			{
 				new ColumnHeader("Ship ID", Alignment.Center, Alignment.Center),
 				new ColumnHeader("Ship State", Alignment.Center, Alignment.Center),
-				new ColumnHeader("Container ID", Alignment.Center, Alignment.Center),
-				new ColumnHeader("Boxes Inside", Alignment.Center, Alignment.Center),
+				new ColumnHeader("Containers Inside", Alignment.Center, Alignment.Center),
 				new ColumnHeader("Loaded Weight", Alignment.Center, Alignment.Center),
 				//new ColumnHeader("Location", Alignment.Center, Alignment.Center),
 				//new ColumnHeader("Docking spot", Alignment.Center, Alignment.Center),
 			};
-			var portTable = new Table(portHeaders);
-			portTable.Config = TableConfiguration.UnicodeAlt();
+			var shipTable = new Table(shipHeaders);
+			shipTable.Config = TableConfiguration.UnicodeAlt();
 			foreach (var ship in Ships)
 			{
-				foreach (var container in Containers)
-				{
-					portTable.AddRow(ship.ShipId, ship.ReturnShipState(ship), container.ContainerId, container.CountSmallerStorage(container.BoxesInside), $"{container.ContentWeight} kg");
-				}
+					shipTable.AddRow(ship.ShipId, ship.ReturnStorageState(ship),  ship.CountSmallerStorage(ship.ContainersInside), $"{ship.ContentWeight} kg");
 			}
 
 			Console.ForegroundColor = ConsoleColor.DarkCyan;
-			Console.WriteLine("Port Table: \n");
-			Console.WriteLine(portTable.ToString());
+			Console.WriteLine("Ship Table: \n");
+			Console.WriteLine(shipTable.ToString());
+			Console.ResetColor();
+		}
+
+		private static void PrintContainerTable()
+		{
+			ColumnHeader[] containerHeaders = new[]
+			{
+				new ColumnHeader("Container ID", Alignment.Center, Alignment.Center),
+				new ColumnHeader("Container State", Alignment.Center, Alignment.Center),
+				new ColumnHeader("Containers Inside", Alignment.Center, Alignment.Center),
+				new ColumnHeader("Loaded Weight", Alignment.Center, Alignment.Center),
+			};
+			var containerTable = new Table(containerHeaders);
+			containerTable.Config = TableConfiguration.UnicodeAlt();
+			foreach (var container in Containers)
+			{
+				containerTable.AddRow(container.ContainerId, container.ReturnStorageState(container), container.CountSmallerStorage(container.BoxesInside), $"{container.ContentWeight} kg");
+			}
+
+			Console.ForegroundColor = ConsoleColor.DarkMagenta;
+			Console.WriteLine("Container Table: \n");
+			Console.WriteLine(containerTable.ToString());
 			Console.ResetColor();
 		}
 
@@ -132,7 +151,7 @@ namespace Containers3000
 			};
 			
 			var menuTable = new Table(menuHeaders)
-				.AddRow("1", "Print table with port info")
+				.AddRow("1", "Print tables with port info")
 				.AddRow("2", "Move container to different ship")
 				.AddRow("3", "Unload container from ship to docks");
 

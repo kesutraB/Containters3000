@@ -1,5 +1,5 @@
 namespace Containers3000.Helpers
 {
-	public enum ShipState
+	public enum StorageState
 	{ None, NotFull, Full }
 }

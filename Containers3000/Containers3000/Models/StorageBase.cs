@@ -7,6 +7,7 @@ namespace Containers3000.Models
 	public abstract class StorageBase
 	{
 		public Guid StorageId { get; }
+		public StorageState State { get; set; } = StorageState.None;
 		public int Height { get; protected set; }
 		public int Width { get; protected set; }
 		public int Length { get; protected set; }
@@ -46,6 +47,22 @@ namespace Containers3000.Models
 		public static bool CheckGeneratedId(string id, List<string> generatedIds)
 		{
 			return generatedIds.Contains(id);
+		}
+
+		public string ReturnStorageState(StorageBase storage)
+		{
+			if (storage.State == StorageState.Full)
+				return "Full";
+
+			return "Not Full";
+		}
+
+		public void CheckStorageState(StorageBase smallerStorage, StorageBase biggerStorage)
+		{
+			if (biggerStorage.DoesSmallerStorageFitIntoBiggerStorage(smallerStorage))
+				biggerStorage.State = StorageState.NotFull;
+			else if (!biggerStorage.DoesSmallerStorageFitIntoBiggerStorage(smallerStorage))
+				biggerStorage.State = StorageState.Full;
 		}
 
 		public bool AddSmallerStorageToBiggerStorage(StorageBase storage, List<StorageBase> storageInside)
