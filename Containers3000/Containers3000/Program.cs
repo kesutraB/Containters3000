@@ -8,7 +8,7 @@ namespace Containers3000
 {
 	internal class Program
 	{
-		public const int NumberOfBoxes = 600;
+		public const int NumberOfBoxes = 750;
 		public static List<Box> Boxes = new List<Box>();
 		public static List<Container> Containers = new List<Container>();
 		public static List<Ship> Ships = new List<Ship>();
@@ -75,7 +75,7 @@ namespace Containers3000
 					return;
 				}
 
-				ship.AddSmallerStorageToBiggerStorage(container, ship.ContainersInside);
+				ship.AddContainer(container);
 
 				ship.CheckStorageState(container, ship);
 				ship.ReturnStorageState(ship);
@@ -124,13 +124,11 @@ namespace Containers3000
 				new ColumnHeader("Loaded Weight", Alignment.Center, Alignment.Center),
 				//new ColumnHeader("Docking spot", Alignment.Center, Alignment.Center),
 			};
-			int i = 0;
+			
 			var shipTable = new Table(shipHeaders);
 			shipTable.Config = TableConfiguration.UnicodeAlt();
 			foreach (var ship in Ships)
 			{
-				var container = ship.ContainersInside[i];
-				ship.ContentWeight += (container.ContentWeight - container.Weight);
 				shipTable.AddRow(ship.ShipId, ship.ReturnStorageState(ship), ship.CountSmallerStorage(ship.ContainersInside), $"{ship.ContentWeight} kg");
 			}
 
@@ -144,20 +142,18 @@ namespace Containers3000
 		{
 			ColumnHeader[] containerHeaders = new[]
 			{
-				new ColumnHeader("No.", Alignment.Center, Alignment.Center),
 				new ColumnHeader("Container ID", Alignment.Center, Alignment.Center),
 				new ColumnHeader("Container State", Alignment.Center, Alignment.Center),
 				new ColumnHeader("Containers Inside", Alignment.Center, Alignment.Center),
 				new ColumnHeader("Loaded Weight", Alignment.Center, Alignment.Center),
-				new ColumnHeader("Location", Alignment.Center, Alignment.Center),
+				//new ColumnHeader("Location", Alignment.Center, Alignment.Center),
 			};
-			int i = 1;
+
 			var containerTable = new Table(containerHeaders);
 			containerTable.Config = TableConfiguration.UnicodeAlt();
 			foreach (var container in Containers)
 			{
-				containerTable.AddRow(i, container.ContainerId, container.ReturnStorageState(container), container.CountSmallerStorage(container.BoxesInside), $"{container.ContentWeight} kg", $"ship(ship id)/dock");
-				i++;
+				containerTable.AddRow(container.ContainerId, container.ReturnStorageState(container), container.CountSmallerStorage(container.BoxesInside), $"{container.ContentWeight} kg"/*, $"ship(ship id)/dock"*/);
 			}
 
 			Console.ForegroundColor = ConsoleColor.DarkMagenta;
