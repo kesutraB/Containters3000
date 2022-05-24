@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 using Containers3000.Models;
 using BetterConsoleTables;
 
@@ -18,8 +20,12 @@ namespace Containers3000
 			AddingBoxesUntilFull(NumberOfBoxes, 0, nullBox);
 			int numberOfContainers = Containers.Count;
 			AddingContainersUntilFull(numberOfContainers, 0);
-			//dat Menu() do while s ukoncovacim keywordem
-			Menu();
+
+			while (true)
+			{
+				Menu();
+				Thread.Sleep(500);
+			}
 		}
 
 		private static void Menu()
@@ -43,6 +49,9 @@ namespace Containers3000
 					break;
 				case 3:
 					Console.WriteLine("Not yet");
+					break;
+				case 4:
+					Environment.Exit(0);
 					break;
 			}
 		}
@@ -118,7 +127,12 @@ namespace Containers3000
 			shipTable.Config = TableConfiguration.UnicodeAlt();
 			foreach (var ship in Ships)
 			{
-				shipTable.AddRow(ship.ShipId, ship.ReturnStorageState(ship),  ship.CountSmallerStorage(ship.ContainersInside), $"{ship.ContentWeight} kg");
+				foreach (var container in ship.ContainersInside)
+				{
+					ship.ContentWeight += (container.ContentWeight - container.Weight);
+					shipTable.AddRow(ship.ShipId, ship.ReturnStorageState(ship), ship.CountSmallerStorage(ship.ContainersInside), $"{ship.ContentWeight} kg");
+				}
+				
 			}
 
 			Console.ForegroundColor = ConsoleColor.DarkCyan;
@@ -157,11 +171,12 @@ namespace Containers3000
 				new ColumnHeader("Action Key", Alignment.Center, Alignment.Center),
 				new ColumnHeader("Action", Alignment.Center, Alignment.Center)
 			};
-			
+
 			var menuTable = new Table(menuHeaders)
 				.AddRow("1", "Print tables with port info")
 				.AddRow("2", "Move container to different ship")
-				.AddRow("3", "Unload container from ship to docks");
+				.AddRow("3", "Unload container from ship to docks")
+				.AddRow("4", "Exit");
 
 			menuTable.Config = TableConfiguration.UnicodeAlt();
 			Console.ForegroundColor = ConsoleColor.DarkGreen;

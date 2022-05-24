@@ -12,7 +12,7 @@ namespace Containers3000.Models
 		public int Width { get; protected set; }
 		public int Length { get; protected set; }
 		public int Weight { get; protected set; }
-		public int ContentWeight { get; protected set; }
+		public int ContentWeight { get; set; }
 		public double Volume { get; protected set; }
 		public double AvailableVolume { get; protected set; }
 

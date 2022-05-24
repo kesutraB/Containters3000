@@ -18,6 +18,5 @@ namespace Containers3000.Models
 		{
 			return new Ship(40, 250, 1000, 100000);
 		}
-
 	}
 }
