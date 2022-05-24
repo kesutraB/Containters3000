@@ -16,7 +16,7 @@ namespace Containers3000.Models
 
 		public static Container CreateContainer()
 		{
-			return new Container(20, 100, 500, 10000);
+			return new Container(20, 100, 500, 1000);
 		}
 
 		public static Container GetContainer(Container nullContainer)

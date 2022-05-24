@@ -21,6 +21,7 @@ namespace Containers3000
 			int numberOfContainers = Containers.Count;
 			AddingContainersUntilFull(numberOfContainers, 0, nullContainer);
 
+
 			while (true)
 			{
 				Menu();
@@ -62,7 +63,7 @@ namespace Containers3000
 		{
 			var ship = Ship.CreateShip();
 			Ships.Add(ship);
-			
+
 			for (int i = firstContainer; i < notStoragedContainers; i++)
 			{
 				var container = Container.GetContainer(nullContainer);
@@ -75,8 +76,7 @@ namespace Containers3000
 					return;
 				}
 
-				ship.AddContainer(container);
-
+				ship.AddSmallerStorageToBiggerStorage(container, ship.ContainersInside);
 				ship.CheckStorageState(container, ship);
 				ship.ReturnStorageState(ship);
 
@@ -122,14 +122,13 @@ namespace Containers3000
 				new ColumnHeader("Ship State", Alignment.Center, Alignment.Center),
 				new ColumnHeader("Containers Inside", Alignment.Center, Alignment.Center),
 				new ColumnHeader("Loaded Weight", Alignment.Center, Alignment.Center),
-				//new ColumnHeader("Docking spot", Alignment.Center, Alignment.Center),
 			};
 			
 			var shipTable = new Table(shipHeaders);
 			shipTable.Config = TableConfiguration.UnicodeAlt();
 			foreach (var ship in Ships)
 			{
-				shipTable.AddRow(ship.ShipId, ship.ReturnStorageState(ship), ship.CountSmallerStorage(ship.ContainersInside), $"{ship.ContentWeight} kg");
+				shipTable.AddRow(ship.ShipId, ship.ReturnStorageState(ship), ship.CountSmallerStorage(ship.ContainersInside), $"{ship.LoadedWeight} kg");
 			}
 
 			Console.ForegroundColor = ConsoleColor.DarkCyan;
@@ -153,7 +152,7 @@ namespace Containers3000
 			containerTable.Config = TableConfiguration.UnicodeAlt();
 			foreach (var container in Containers)
 			{
-				containerTable.AddRow(container.ContainerId, container.ReturnStorageState(container), container.CountSmallerStorage(container.BoxesInside), $"{container.ContentWeight} kg"/*, $"ship(ship id)/dock"*/);
+				containerTable.AddRow(container.ContainerId, container.ReturnStorageState(container), container.CountSmallerStorage(container.BoxesInside), $"{container.LoadedWeight} kg"/*, $"ship(ship id)/dock"*/);
 			}
 
 			Console.ForegroundColor = ConsoleColor.DarkMagenta;

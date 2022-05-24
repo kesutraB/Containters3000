@@ -16,21 +16,7 @@ namespace Containers3000.Models
 
 		public static Ship CreateShip()
 		{
-			return new Ship(40, 250, 1000, 100000);
+			return new Ship(40, 250, 1000, 0);
 		}
-
-		public bool AddContainer(Container container)
-		{
-			AddSmallerStorageToBiggerStorage(container, ContainersInside);
-			return true;
-		}
-
-		public bool RemoveContainer(Container container)
-		{
-
-		}
-		public void LoadedWeight(Container container)
-		{
-			ContentWeight += (container.ContentWeight - container.Weight);
-		}
+	}
 }

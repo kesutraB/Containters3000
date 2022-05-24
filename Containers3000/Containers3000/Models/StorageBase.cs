@@ -12,7 +12,7 @@ namespace Containers3000.Models
 		public int Width { get; protected set; }
 		public int Length { get; protected set; }
 		public int Weight { get; protected set; }
-		public int ContentWeight { get; set; }
+		public int LoadedWeight { get; set; }
 		public double Volume { get; protected set; }
 		public double AvailableVolume { get; protected set; }
 
@@ -23,7 +23,7 @@ namespace Containers3000.Models
 			Width = width;
 			Length = length;
 			Weight = weight;
-			ContentWeight = 0;
+			LoadedWeight = 0;
 			Volume = height * width * length;
 			AvailableVolume = Volume;
 		}
@@ -94,7 +94,7 @@ namespace Containers3000.Models
 
 		public void AddWeight(int newWeight)
 		{
-			ContentWeight += newWeight;
+			LoadedWeight += newWeight;
 		}
 
 		#endregion
