@@ -28,6 +28,8 @@ namespace Containers3000.Models
 			AvailableVolume = Volume;
 		}
 
+		#region Managing generated ids
+
 		public static string GetId(List<string> generatedIds)
 		{
 			string id = "";
@@ -48,6 +50,10 @@ namespace Containers3000.Models
 		{
 			return generatedIds.Contains(id);
 		}
+
+		#endregion
+
+		#region Managing storage
 
 		public string ReturnStorageState(StorageBase storage)
 		{
@@ -90,5 +96,7 @@ namespace Containers3000.Models
 		{
 			ContentWeight += newWeight;
 		}
+
+		#endregion
 	}
 }

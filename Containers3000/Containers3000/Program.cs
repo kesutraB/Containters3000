@@ -47,6 +47,8 @@ namespace Containers3000
 			}
 		}
 
+		#region Adding storage
+
 		private static void AddingContainersUntilFull(int notStoragedContainers, int firstContainer)
 		{
 			var ship = Ship.CreateShip();
@@ -98,6 +100,10 @@ namespace Containers3000
 			}
 		}
 
+		#endregion//musim predelat na univerzalni funkci
+
+		#region Printing tables
+
 		private static void PrintShipTable()
 		{
 			ColumnHeader[] shipHeaders = new[]
@@ -113,7 +119,7 @@ namespace Containers3000
 			shipTable.Config = TableConfiguration.UnicodeAlt();
 			foreach (var ship in Ships)
 			{
-					shipTable.AddRow(ship.ShipId, ship.ReturnStorageState(ship),  ship.CountSmallerStorage(ship.ContainersInside), $"{ship.ContentWeight} kg");
+				shipTable.AddRow(ship.ShipId, ship.ReturnStorageState(ship),  ship.CountSmallerStorage(ship.ContainersInside), $"{ship.ContentWeight} kg");
 			}
 
 			Console.ForegroundColor = ConsoleColor.DarkCyan;
@@ -161,5 +167,7 @@ namespace Containers3000
 			Console.ForegroundColor = ConsoleColor.DarkGreen;
 			Console.WriteLine(menuTable.ToString());
 		}
+
+		#endregion
 	}
 }
