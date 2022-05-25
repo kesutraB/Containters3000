@@ -120,15 +120,14 @@ namespace Containers3000
 			{
 				new ColumnHeader("Ship ID", Alignment.Center, Alignment.Center),
 				new ColumnHeader("Ship State", Alignment.Center, Alignment.Center),
-				new ColumnHeader("Containers Inside", Alignment.Center, Alignment.Center),
-				new ColumnHeader("Loaded Weight", Alignment.Center, Alignment.Center),
+				new ColumnHeader("Containers Inside", Alignment.Center, Alignment.Center)
 			};
 			
 			var shipTable = new Table(shipHeaders);
 			shipTable.Config = TableConfiguration.UnicodeAlt();
 			foreach (var ship in Ships)
 			{
-				shipTable.AddRow(ship.ShipId, ship.ReturnStorageState(ship), ship.CountSmallerStorage(ship.ContainersInside), $"{ship.LoadedWeight} kg");
+				shipTable.AddRow(ship.ShipId, ship.ReturnStorageState(ship), ship.CountSmallerStorage(ship.ContainersInside));
 			}
 
 			Console.ForegroundColor = ConsoleColor.DarkCyan;
