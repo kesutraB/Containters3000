@@ -5,4 +5,7 @@ namespace Containers3000.Helpers
 
 	public enum ContainerLocation
 	{ None, Ship, Dock}
+
+	public enum DockOccupation
+	{ None, Free, Occupied }
 }
