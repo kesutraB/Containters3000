@@ -142,7 +142,7 @@ namespace Containers3000
 			{
 				new ColumnHeader("Container ID", Alignment.Center, Alignment.Center),
 				new ColumnHeader("Container State", Alignment.Center, Alignment.Center),
-				new ColumnHeader("Containers Inside", Alignment.Center, Alignment.Center),
+				new ColumnHeader("Box Inside", Alignment.Center, Alignment.Center),
 				new ColumnHeader("Loaded Weight", Alignment.Center, Alignment.Center),
 				new ColumnHeader("Location", Alignment.Center, Alignment.Center)
 			};
@@ -151,7 +151,7 @@ namespace Containers3000
 			containerTable.Config = TableConfiguration.UnicodeAlt();
 			foreach (var container in Containers)
 			{
-				containerTable.AddRow(container.ContainerId, container.ReturnStorageState(container), container.CountSmallerStorage(container.BoxesInside), $"{container.LoadedWeight} kg"/*, $"ship(id)/dock"*/);
+				containerTable.AddRow(container.ContainerId, container.ReturnStorageState(container), container.CountSmallerStorage(container.BoxesInside), $"{container.LoadedWeight} kg");
 			}
 
 			Console.ForegroundColor = ConsoleColor.DarkMagenta;
